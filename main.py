@@ -1,33 +1,30 @@
 import time
 import threading
 import keyboard
+from queue import Queue
 
 pressed_a = False
 pressed_b = False
 
-key_press = ""
+key_press_queue = Queue()
 
 
 def main():
-    global key_press
+    global key_press_queue
     threading.Thread(target=listen_for_keypress).start()
     while True:
-        # print("main is executing...")
-        # print("Pressed a: " + bool_to_string(pressed_a))
-        # print("Pressed b: " + bool_to_string(pressed_b))
-        if key_press is not "":
-            print("Pressed key: " + key_press)
-            key_press = ""
+        while not key_press_queue.empty():
+            print("Pressed key: " + key_press_queue.get_nowait())
 
 
 def listen_for_keypress():
-    global key_press
+    global key_press_queue
     while True:
         if keyboard.is_pressed("a"):
-            key_press = "a"
+            key_press_queue.put("a")
             time.sleep(0.5)
         elif keyboard.is_pressed("b"):
-            key_press = "b"
+            key_press_queue.put("b")
             time.sleep(0.5)
 
 
