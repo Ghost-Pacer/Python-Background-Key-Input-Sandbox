@@ -3,9 +3,6 @@ import threading
 import keyboard
 from queue import Queue
 
-pressed_a = False
-pressed_b = False
-
 key_press_queue = Queue()
 
 
@@ -22,16 +19,13 @@ def listen_for_keypress():
     while True:
         if keyboard.is_pressed("a"):
             key_press_queue.put("a")
-            time.sleep(0.5)
+            time.sleep(0.25)
         elif keyboard.is_pressed("b"):
             key_press_queue.put("b")
-            time.sleep(0.5)
-
-
-def bool_to_string(bool_to_convert: bool) -> str:
-    return "True" if bool_to_convert else "False"
+            time.sleep(0.25)
 
 
 if __name__ == '__main__':
-    print("hello")
+    print("Press a or b and it will be recorded in a background thread")
+    print("and printed out on the main thread.")
     main()
