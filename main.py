@@ -4,14 +4,13 @@ import keylogger
 
 
 def main():
-    global key_press_queue
-    threading.Thread(target=keylogger.listen_for_keypress).start()
+    threading.Thread(target=keylogger.listen_for_keypresses).start()
     while True:
         while keylogger.key_press_is_logged():
             print("Pressed key: " + keylogger.dequeue_key_press())
 
 
 if __name__ == "__main__":
-    print("Press a or b and it will be recorded in a background thread")
+    print("Press w, s, or enter and it will be recorded in a background thread")
     print("and printed out on the main thread.")
     main()
