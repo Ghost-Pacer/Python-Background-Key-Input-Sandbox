@@ -2,6 +2,8 @@ import time
 import keyboard
 from queue import Queue
 
+_KEY_PRESS_DELAY = 0.25
+
 _key_press_queue = Queue()
 
 
@@ -10,10 +12,10 @@ def listen_for_keypress():
     while True:
         if keyboard.is_pressed("a"):
             _key_press_queue.put("a")
-            time.sleep(0.25)
+            time.sleep(_KEY_PRESS_DELAY)
         elif keyboard.is_pressed("b"):
             _key_press_queue.put("b")
-            time.sleep(0.25)
+            time.sleep(_KEY_PRESS_DELAY)
 
 
 def dequeue_key_press() -> str:
