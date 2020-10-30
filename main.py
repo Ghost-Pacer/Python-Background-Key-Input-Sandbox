@@ -7,7 +7,7 @@ def main():
     threading.Thread(target=keylogger.listen_for_keypresses).start()
     while True:
         while keylogger.key_press_is_logged():
-            print("Pressed key: " + keylogger.dequeue_key_press())
+            print("Pressed key: " + keylogger.dequeue_key_press().value)
 
 
 if __name__ == "__main__":

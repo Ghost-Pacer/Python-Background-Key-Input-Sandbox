@@ -1,9 +1,16 @@
-import time
 from pynput import keyboard
 from queue import Queue
+from enum import Enum
+
 
 _key_press_queue = Queue()
 _should_block_input = False
+
+
+class Button(Enum):
+    UP = "w"
+    DOWN = "s"
+    SELECT = "enter"
 
 
 def listen_for_keypresses():
@@ -27,11 +34,11 @@ def _key_was_pressed(key):
 
     if not _should_block_input:
         if key == keyboard.Key.enter:
-            _key_press_queue.put("enter")
-        elif key == keyboard.KeyCode.from_char("w"):
-            _key_press_queue.put("w")
-        elif key == keyboard.KeyCode.from_char("s"):
-            _key_press_queue.put("s")
+            _key_press_queue.put(Button.SELECT)
+        elif key == keyboard.KeyCode.from_char(Button.UP.value):
+            _key_press_queue.put(Button.UP)
+        elif key == keyboard.KeyCode.from_char(Button.DOWN.value):
+            _key_press_queue.put(Button.DOWN)
         _should_block_input = True
 
 
